@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<script>
+	
+var A43 = {"N":[{"routeId":"C","delay":null,"arrivalTime":1517433645,"departureTime":1517433645},{"routeId":"C","delay":null,"arrivalTime":1517434256,"departureTime":1517434256},{"routeId":"C","delay":null,"arrivalTime":1517435130,"departureTime":1517435130},{"routeId":"C","delay":null,"arrivalTime":1517436030,"departureTime":1517436030},{"routeId":"C","delay":null,"arrivalTime":1517436510,"departureTime":1517436510}],"S":[{"routeId":"C","delay":null,"arrivalTime":1517433924,"departureTime":1517433924},{"routeId":"C","delay":null,"arrivalTime":1517434374,"departureTime":1517434374},{"routeId":"C","delay":null,"arrivalTime":1517435439,"departureTime":1517435439},{"routeId":"C","delay":null,"arrivalTime":1517435904,"departureTime":1517435904},{"routeId":"A","delay":null,"arrivalTime":1517436127,"departureTime":1517436127},{"routeId":"C","delay":null,"arrivalTime":1517436474,"departureTime":1517436474},{"routeId":"C","delay":null,"arrivalTime":1517437320,"departureTime":1517437320},{"routeId":"C","delay":null,"arrivalTime":1517438130,"departureTime":1517438130}]};
+
+var A44 = {"N":[{"routeId":"C","delay":null,"arrivalTime":1517434188,"departureTime":1517434188},{"routeId":"C","delay":null,"arrivalTime":1517435040,"departureTime":1517435040},{"routeId":"C","delay":null,"arrivalTime":1517435940,"departureTime":1517435940},{"routeId":"C","delay":null,"arrivalTime":1517436420,"departureTime":1517436420}],"S":[{"routeId":"C","delay":null,"arrivalTime":1517434068,"departureTime":1517434068},{"routeId":"C","delay":null,"arrivalTime":1517434518,"departureTime":1517434518},{"routeId":"C","delay":null,"arrivalTime":1517435513,"departureTime":1517435513},{"routeId":"C","delay":null,"arrivalTime":1517436048,"departureTime":1517436048},{"routeId":"C","delay":null,"arrivalTime":1517436618,"departureTime":1517436618},{"routeId":"C","delay":null,"arrivalTime":1517437440,"departureTime":1517437440},{"routeId":"C","delay":null,"arrivalTime":1517438250,"departureTime":1517438250}]};
+
+var A45 = {"N":[{"routeId":"C","delay":null,"arrivalTime":1517434110,"departureTime":1517434110},{"routeId":"C","delay":null,"arrivalTime":1517434950,"departureTime":1517434950},{"routeId":"C","delay":null,"arrivalTime":1517435850,"departureTime":1517435850},{"routeId":"C","delay":null,"arrivalTime":1517436330,"departureTime":1517436330}],"S":[{"routeId":"C","delay":null,"arrivalTime":1517434170,"departureTime":1517434170},{"routeId":"C","delay":null,"arrivalTime":1517434620,"departureTime":1517434620},{"routeId":"C","delay":null,"arrivalTime":1517435603,"departureTime":1517435603},{"routeId":"C","delay":null,"arrivalTime":1517436090,"departureTime":1517436090},{"routeId":"C","delay":null,"arrivalTime":1517436720,"departureTime":1517436720},{"routeId":"C","delay":null,"arrivalTime":1517437530,"departureTime":1517437530},{"routeId":"C","delay":null,"arrivalTime":1517438340,"departureTime":1517438340}]};
+
+
+var a43Times = A43.S.map(function(el){return {a:el.arrivalTime,d:el.departureTime};});
+var a44Times = A44.S.map(function(el){return {a:el.arrivalTime,d:el.departureTime};});
+var a45Times = A45.S.map(function(el){return {a:el.arrivalTime,d:el.departureTime};});
+
+
+
+var trainnum = 3;
+
+
+
+
+var stations = [a43Times, a44Times, a45Times];
+var stationNames = ["Lafayette", "Clinton Wash", "Franklin"];
+
+console.log(stations);
+
+var s = 0;
+var firstArrival = stations[s][trainnum].a;
+var schedule = [];
+schedule.push(firstArrival);
+s++;
+
+while(s < 3){
+	for(var i = 0; i < stations[s].length; i++){
+		if(stations[s][i].a > schedule[s-1]){
+			schedule.push(stations[s][i].a);
+			break;
+		}
+	}
+	s++;
+}
+
+document.body.innerHTML += "<h1>C train</h1>";
+
+for(var i = 0; i < schedule.length; i++){
+	document.body.innerHTML += moment.unix(schedule[i]).format("MMMM Do YYYY, h:mm:ss a") + " - " + stationNames[i] + "<br>";
+}
+
+for(var i = 0; i < stations.length; i++){
+	document.body.innerHTML += "<h1>" + stationNames[i] + "</h1>";
+	stations[i].forEach(function(el){
+		document.body.innerHTML += "<p>" + moment.unix(el.a).format("MMMM Do YYYY, h:mm:ss a") + "</p>";
+	});
+}
+
+</script>
+</body>
+</html>

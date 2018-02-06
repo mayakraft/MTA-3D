@@ -1,0 +1,17 @@
+{
+  "name": "firstdocker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "moment": "^2.19.3",
+    "mta-gtfs": "^1.1.0",
+    "requests": "^0.2.2"
+  }
+}
